@@ -13,7 +13,7 @@ from vietocr.tool.config import Cfg
 from vietocr.tool.predictor import Predictor
 
 
-with open("resource/app-config.yaml") as f:
+with open("resource/app.conf.yaml") as f:
     AppConfig = yaml.load(f, Loader=yaml.FullLoader)
 
 
