@@ -43,6 +43,11 @@ model = load_model()
 server = create_server()
 
 
+@server.route("/", methods=["POST"])
+def index():
+    return "hello world"
+
+
 @server.route("/api/captcha-to-text", methods=["POST"])
 def captcha_to_text():
     if "file" not in request.files:
@@ -65,7 +70,9 @@ def captcha_to_text():
         return result
 
     except:
-        print(str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S" + " error when handle image")))
+        pattern = "%Y-%m-%d %H:%M:%S" + " error when handle image"
+        now = datetime.datetime.now().strftime(pattern)
+        print(str(now))
         return "error"
 
 
@@ -78,8 +85,8 @@ def main():
 if __name__ == "__main__":
     try:
         main()
-    except KeyboardInterrupt:
-        print("KeyboardInterupt")
+    except:
+        print("error happened")
         try:
             sys.exit(0)
         except SystemExit:
