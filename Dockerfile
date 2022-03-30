@@ -8,10 +8,10 @@ COPY requirements.txt requirements.txt
 
 RUN pip3 install -r requirements.txt
 
-COPY *.py ./
+COPY weights.yaml weights.pth /app/
 
-COPY weigths.pth ./
+COPY templates/ /app/templates/
 
-COPY weigths.yaml ./
+COPY app.py configs.py ocr.py /app/
 
 CMD [ "python3", "app.py"]

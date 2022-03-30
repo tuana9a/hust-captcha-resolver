@@ -8,7 +8,7 @@ import ocr
 import configs
 
 from PIL import Image
-from flask import Flask, request
+from flask import Flask, request, render_template
 
 app = Flask(__name__, instance_relative_config=True)
 app.config.from_mapping(MAX_CONTENT_LENGTH=5 * 1024 * 1024)
@@ -23,18 +23,18 @@ def is_allowed_extension(filename):
 
 @app.route("/", methods=["GET"])
 def index():
-    return "try post instead"
+    return render_template("index.html")
 
 
 @app.route("/", methods=["POST"])
 def upload():
     # check file exist
     if "file" not in request.files:
-        return "no file"
+        return "file not exist in request"
     # get the file
     file = request.files["file"]
     if not file:
-        return "no file"
+        return "file is empty"
     # get file name
     filename = werkzeug.utils.secure_filename(file.filename)
     if not is_allowed_extension(filename):

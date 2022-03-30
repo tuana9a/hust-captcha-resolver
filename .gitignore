@@ -130,3 +130,4 @@ dmypy.json
 
 # @tuana9a
 weights.pth
+*.local*
