@@ -6,11 +6,14 @@ import torch
 import uvicorn
 
 from PIL import Image
-from fastapi import FastAPI, UploadFile
+from fastapi import FastAPI, Request, UploadFile
 from vietocr.tool.config import Cfg
 from pydantic import BaseModel
 from vietocr.tool.config import Cfg
 from vietocr.tool.predictor import Predictor as _Predictor
+from slowapi import Limiter, _rate_limit_exceeded_handler
+from slowapi.util import get_remote_address
+from slowapi.errors import RateLimitExceeded
 
 dotenv.load_dotenv(dotenv.find_dotenv())
 
@@ -18,19 +21,15 @@ PORT = os.getenv("PORT") or 5000
 BIND = os.getenv("BIND") or "0.0.0.0"
 DEVICE = os.getenv("DEVICE") or "cpu"
 DEBUG = True if os.getenv("DEBUG") else False
+WEIGHT_CONF_PATH = os.getenv("WEIGHT_CONF_PATH") or "weights.yaml"
 SECRET = os.getenv("SECRET")
 ALLOWED_EXTENSIONS = ["png", "jpg", "jpeg"]
-# 5mb
-MAX_UPLOAD_SIZE = 5 * 1024 * 1024
+MAX_UPLOAD_SIZE = 5 * 1024 * 1024  # 5mb
 SUPPORTED_DEVICES = [
     "cpu", "cuda", "cuda:0", "xpu", "mkldnn", "opengl", "opencl", "ideep",
     "hip", "msnpu", "xla", "vulkan"
 ]
 CUDA_DEVICES = ["cuda", "cuda:0"]
-WEIGHT_CONF_PATH = os.getenv("WEIGHT_CONF_PATH") or "weights.yaml"
-MAX_LOAD = 1
-
-current_load = 0
 
 
 class Predictor:
@@ -54,7 +53,10 @@ class Predictor:
 
 
 predictor = Predictor()
+limiter = Limiter(key_func=get_remote_address)
 app = FastAPI()
+app.state.limiter = limiter
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
 
 def is_allowed_extension(filename):
@@ -83,29 +85,28 @@ def hello_world():
 
 
 @app.post("/")
-def upload_image_to_predict(file: UploadFile):
+@limiter.limit("5/minute")
+# request: Request argument is a must for ratelimit to work
+def upload_image_to_predict(request: Request, file: UploadFile):
     # TODO: max file upload
-    global current_load
-    if current_load > MAX_LOAD:
-        return "max load"
     if not file:
         return "file is empty"
     filename = file.filename
     if not is_allowed_extension(filename):
         return "extension is not allowed: " + filename
     result = None
-    current_load = current_load + 1
     try:
         image = Image.open(file.file)
         result = predictor.predict(img=image)
     except Exception as err:
         result = f"Error: {err} {change_device.__name__}(): {traceback.format_exc()}"
-    current_load = current_load - 1
     return result
 
 
 @app.post("/change_device")
-def change_device(body: ChangeDeviceRequest):
+@limiter.limit("5/minute")
+# request: Request argument is a must for ratelimit to work
+def change_device(request: Request, body: ChangeDeviceRequest):
     # TODO: rate limit change device
     try:
         device = body.device
