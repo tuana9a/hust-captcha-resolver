@@ -4,18 +4,24 @@ nhận diện ảnh captcha ra text trong đó dùng thư viện [pbcquoc/vietoc
 
 ## .env
 
-DEVICE=cpu
-
-or
-
-DEVICE=cuda:0
+`DEVICE=cpu` or `DEVICE=cuda:0`
 
 ## how to install
 
 ```bash
-sudo apt install build-essential python3.8 python3.8-distutils python3.8-venv python3.8-dev
+pip install --no-cache-dir -r requirements.txt
 ```
 
+## how to run in docker
+
+just test it
+
 ```bash
-pip install --no-cache-dir -r requirements.txt
+docker run --rm -it -p 5000:5000/tcp --env-file .env --memory 1g tuana9a/hust-captcha-resolver:latest
+```
+
+auto restart
+
+```bash
+docker run -d -p 5000:5000/tcp --env-file .env --memory 1g --restart unless-stopped tuana9a/hust-captcha-resolver:latest
 ```

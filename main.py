@@ -18,7 +18,7 @@ from slowapi.errors import RateLimitExceeded
 dotenv.load_dotenv(dotenv.find_dotenv())
 
 PORT = os.getenv("PORT") or 5000
-BIND = os.getenv("BIND") or "0.0.0.0"
+BIND = os.getenv("BIND") or "127.0.0.1"
 DEVICE = os.getenv("DEVICE") or "cpu"
 DEBUG = True if os.getenv("DEBUG") else False
 WEIGHT_CONF_PATH = os.getenv("WEIGHT_CONF_PATH") or "weights.yaml"
@@ -30,6 +30,7 @@ SUPPORTED_DEVICES = [
     "hip", "msnpu", "xla", "vulkan"
 ]
 CUDA_DEVICES = ["cuda", "cuda:0"]
+UPLOAD_RATE_LIMIT = os.getenv("UPLOAD_RATE_LIMIT") or "60/minute"
 
 
 class Predictor:
@@ -85,7 +86,7 @@ def hello_world():
 
 
 @app.post("/")
-@limiter.limit("5/minute")
+@limiter.limit(UPLOAD_RATE_LIMIT)
 # request: Request argument is a must for ratelimit to work
 def upload_image_to_predict(request: Request, file: UploadFile):
     # TODO: max file upload
