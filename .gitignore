@@ -130,7 +130,6 @@ dmypy.json
 
 # @tuana9a
 weights*.pth
-weights*.yaml
 *tmp*
 *.tar.gz
 .vscode

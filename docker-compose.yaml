@@ -1,0 +1,11 @@
+version: "3"
+
+services:
+  hust-captcha-resolver:
+    image: tuana9a/hust-captcha-resolver
+    container_name: hust-captcha-resolver
+    build: .
+    ports:
+      - ${HOST_PORT}:${PORT}
+    env_file: .env
+    restart: unless-stopped

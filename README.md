@@ -1,10 +1,20 @@
 # hust-captcha-resovler
 
-nhận diện ảnh captcha ra text trong đó dùng thư viện [pbcquoc/vietocr](https://github.com/pbcquoc/vietocr)
+Nhận diện captcha Đại học Bách Khoa Hà Nội từ ảnh ra text
 
-## .env
+Mình sử dụng thư viện [pbcquoc/vietocr](https://github.com/pbcquoc/vietocr)
 
-`DEVICE=cpu` or `DEVICE=cuda:0`
+## set DEVICE in `.env` file
+
+`.env` file
+
+you use cpu `DEVICE=cpu`
+
+you use gpu nvidia with cuda `DEVICE=cuda:0`
+
+## weights
+
+weights.pth [Google Drive](https://drive.google.com/file/d/1Yfz9JbA-I4cPuMXKNUQHZAmLu1rRVMCw/view?usp=sharing)
 
 ## how to install
 
@@ -12,16 +22,18 @@ nhận diện ảnh captcha ra text trong đó dùng thư viện [pbcquoc/vietoc
 pip install --no-cache-dir -r requirements.txt
 ```
 
-## how to run in docker
+## how to run
 
-just test it
+### docker
+
+quick test
 
 ```bash
-docker run --rm -it -p 5000:5000/tcp --env-file .env --memory 1g tuana9a/hust-captcha-resolver:latest
+docker run --rm -it --env-file .env tuana9a/hust-captcha-resolver
 ```
 
-auto restart
+long run with `docker-compose.yaml`
 
 ```bash
-docker run -d -p 5000:5000/tcp --env-file .env --memory 1g --restart unless-stopped tuana9a/hust-captcha-resolver:latest
+docker-compose up -d
 ```
