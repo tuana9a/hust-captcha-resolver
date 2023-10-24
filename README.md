@@ -14,7 +14,7 @@ you use gpu nvidia with cuda `DEVICE=cuda:0`
 
 ## weights
 
-weights.pth [Google Drive](https://drive.google.com/file/d/1Yfz9JbA-I4cPuMXKNUQHZAmLu1rRVMCw/view?usp=sharing)
+weights.pth [https://public.tuana9a.com/hust-captcha-resolver/weights-2021.04.05.pth](https://public.tuana9a.com/hust-captcha-resolver/weights-2021.04.05.pth)
 
 ## how to install
 
