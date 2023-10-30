@@ -6,6 +6,7 @@ import uvicorn
 
 from PIL import Image
 from fastapi import FastAPI, Request, UploadFile
+from fastapi.responses import PlainTextResponse
 from vietocr.tool.config import Cfg
 from vietocr.tool.predictor import Predictor
 from slowapi import Limiter, _rate_limit_exceeded_handler
@@ -28,8 +29,7 @@ CUDA_DEVICES = ["cuda", "cuda:0"]
 UPLOAD_RATE_LIMIT = os.getenv("UPLOAD_RATE_LIMIT") or "60/minute"
 
 
-class DITO:
-
+class DITO: # preDIcTOr
     def __init__(self, cfg: Cfg) -> None:
         self.cfg = cfg
         self.predictor = Predictor(self.cfg)
@@ -64,12 +64,12 @@ with open(WEIGHT_CONF_PATH) as f:
     dito = DITO(cfg)
 
 
-@app.get("/")
+@app.get("/", response_class=PlainTextResponse)
 def hello_world():
     return "hello world"
 
 
-@app.post("/")
+@app.post("/", response_class=PlainTextResponse)
 @limiter.limit(UPLOAD_RATE_LIMIT)
 # request: Request argument is a must for ratelimit to work
 def predict(request: Request, file: UploadFile):
