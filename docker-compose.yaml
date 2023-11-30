@@ -6,6 +6,6 @@ services:
     container_name: hust-captcha-resolver
     build: .
     ports:
-      - ${HOST_PORT}:${PORT}
+      - 8080:8080
     env_file: .env
     restart: unless-stopped

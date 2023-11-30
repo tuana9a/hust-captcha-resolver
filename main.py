@@ -6,7 +6,7 @@ import uvicorn
 
 from PIL import Image
 from fastapi import FastAPI, Request, UploadFile
-from fastapi.responses import PlainTextResponse
+from fastapi.responses import PlainTextResponse, HTMLResponse
 from vietocr.tool.config import Cfg
 from vietocr.tool.predictor import Predictor
 from slowapi import Limiter, _rate_limit_exceeded_handler
@@ -22,14 +22,24 @@ DEBUG = True if os.getenv("DEBUG") else False
 WEIGHT_CONF_PATH = os.getenv("WEIGHT_CONF_PATH") or "weights.yaml"
 ALLOWED_EXTENSIONS = ["png", "jpg", "jpeg"]
 SUPPORTED_DEVICES = [
-    "cpu", "cuda", "cuda:0", "xpu", "mkldnn", "opengl", "opencl", "ideep",
-    "hip", "msnpu", "xla", "vulkan"
+    "cpu",
+    "cuda",
+    "cuda:0",
+    "xpu",
+    "mkldnn",
+    "opengl",
+    "opencl",
+    "ideep",
+    "hip",
+    "msnpu",
+    "xla",
+    "vulkan",
 ]
 CUDA_DEVICES = ["cuda", "cuda:0"]
 UPLOAD_RATE_LIMIT = os.getenv("UPLOAD_RATE_LIMIT") or "60/minute"
 
 
-class DITO: # preDIcTOr
+class DITO:  # preDIcTOr
     def __init__(self, cfg: Cfg) -> None:
         self.cfg = cfg
         self.predictor = Predictor(self.cfg)
@@ -64,9 +74,10 @@ with open(WEIGHT_CONF_PATH) as f:
     dito = DITO(cfg)
 
 
-@app.get("/", response_class=PlainTextResponse)
-def hello_world():
-    return "hello world"
+@app.get("/", response_class=HTMLResponse)
+def test():
+    with open("index.html") as f:
+        return HTMLResponse(content=f.read())
 
 
 @app.post("/", response_class=PlainTextResponse)
