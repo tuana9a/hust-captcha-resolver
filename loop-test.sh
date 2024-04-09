@@ -6,8 +6,7 @@ fi
 
 while true; do
   for f in ./samples/*.png; do
-    curl -X POST "$PREDICT_URL" -F "file=@$f"
+    echo -n "$f -> "; curl -X POST "$PREDICT_URL" -F "file=@$f"
     echo
-    sleep 1
   done
 done
