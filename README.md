@@ -21,14 +21,6 @@ Content-Type: image/png
 ------WebKitFormBoundary7MA4YWxkTrZu0gW--
 ```
 
-## set DEVICE in `.env` file
-
-`.env` file
-
-you use cpu `DEVICE=cpu`
-
-you use gpu nvidia with cuda `DEVICE=cuda:0`
-
 ## weights
 
 weights.pth [https://public.tuana9a.com/hust-captcha-resolver/weights-2021.04.05.pth](https://public.tuana9a.com/hust-captcha-resolver/weights-2021.04.05.pth)
@@ -41,7 +33,19 @@ pip install --no-cache-dir -r requirements.txt
 
 ## how to run
 
-create `.env` file from `.env.example`
+### env variables
+
+examples
+
+`PORT`=`8080`
+
+`BIND`=`127.0.0.1`
+
+`DEVICE`=`cpu`
+
+or `DEVICE`=`cuda:0`
+
+`UPLOAD_RATE_LIMIT`=`5/5second`
 
 ### docker
 
@@ -51,7 +55,21 @@ quick test
 docker run --rm -p 8080:8080 -it --env-file .env tuana9a/hust-captcha-resolver
 ```
 
-with `docker-compose.yaml`
+### `docker-compose.yaml`
+
+```yaml
+version: "3"
+
+services:
+  hcr:
+    image: tuana9a/hcr
+    container_name: hcr
+    build: .
+    ports:
+      - 8080:8080
+    env_file: .env
+    restart: unless-stopped
+```
 
 ```bash
 docker-compose up -d

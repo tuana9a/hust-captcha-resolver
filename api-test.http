@@ -1,0 +1,43 @@
+### localhost
+POST http://localhost:8080
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="file"; filename="1.png"
+Content-Type: image/png
+
+< ./samples/02525_1632185511419.png
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+###
+POST https://hcr.tuana9a.com
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="file"; filename="1.png"
+Content-Type: image/png
+
+< ./samples/23704_1632185498725.png
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+###
+POST https://hust-captcha-resolver.tuana9a.com
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="file"; filename="1.png"
+Content-Type: image/png
+
+< ./samples/35345_1632185507577.png
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+###
+POST https://hcr.tuana9a.com
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="file"; filename="35345_1632185507577.png"
+Content-Type: image/png
+
+< ./samples/35345_1632185507577.png
+------WebKitFormBoundary7MA4YWxkTrZu0gW--

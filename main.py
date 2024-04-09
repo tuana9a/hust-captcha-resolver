@@ -95,7 +95,7 @@ def predict(request: Request, file: UploadFile):
         image = Image.open(file.file)
         result = dito.predict(img=image)
     except Exception as err:
-        result = f"Error: {err} {predict.__name__}(): {traceback.format_exc()}"
+        result = f"Error: {predict.__name__}():\n{traceback.format_exc()}"
     return result
 
 
