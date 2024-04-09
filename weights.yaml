@@ -52,4 +52,4 @@ transformer:
   pos_dropout: 0.1
   trans_dropout: 0.1
 vocab: 0123456789
-weights: ./weights-2021.04.05.pth
+weights: ./weights.pth

@@ -7,7 +7,7 @@ Thằng bạn mình tên Chiến giờ nó đang PhD student bên đại học O
 - Tỉ lệ nhận diện đúng khoảng 80%, có thể chạy trên CPU
 - Mình có đang host predictor này bằng một server 1 core, 1 GB ram thì thời gian predict một ảnh khoảng 0.5s (chậm lâu tùy lúc)
 
-Nếu các bạn không muốn tự deploy có thể dùng sẵn URL này [https://hcr.tuana9a.com](https://hcr.tuana9a.com)
+Nếu các bạn không muốn tự deploy có thể dùng sẵn URL này https://hcr.tuana9a.com
 
 ```http
 POST https://hcr.tuana9a.com
@@ -23,7 +23,7 @@ Content-Type: image/png
 
 ## weights
 
-weights.pth [https://public.tuana9a.com/hust-captcha-resolver/weights-2021.04.05.pth](https://public.tuana9a.com/hust-captcha-resolver/weights-2021.04.05.pth)
+weights.pth https://public.tuana9a.com/hust-captcha-resolver/weights-2021.04.05.pth
 
 ## how to install
 
