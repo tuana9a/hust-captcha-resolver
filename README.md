@@ -27,8 +27,16 @@ weights.pth https://public.tuana9a.com/hust-captcha-resolver/weights-2021.04.05.
 
 ## how to install
 
+mình mới test ở `python3.8`, các phiên bản python khác cần thời gian để test thêm
+
 ```bash
 pip install --no-cache-dir -r requirements.txt
+```
+
+ngoài ra trong lúc cài requirements có thể cần cài thêm các apt package sau
+
+```bash
+sudo apt install libjpeg-dev
 ```
 
 ## how to run

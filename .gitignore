@@ -134,3 +134,4 @@ weights*.pth
 *secret*
 *.tar.gz
 .vscode
+.envrc
