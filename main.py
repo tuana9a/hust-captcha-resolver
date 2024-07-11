@@ -9,9 +9,6 @@ from fastapi import FastAPI, Request, UploadFile
 from fastapi.responses import PlainTextResponse, HTMLResponse
 from vietocr.tool.config import Cfg
 from vietocr.tool.predictor import Predictor
-from slowapi import Limiter, _rate_limit_exceeded_handler
-from slowapi.util import get_remote_address
-from slowapi.errors import RateLimitExceeded
 
 dotenv.load_dotenv(dotenv.find_dotenv())
 
@@ -49,9 +46,6 @@ class DITO:  # preDIcTOr
 
 
 app = FastAPI()
-limiter = Limiter(key_func=get_remote_address)
-app.state.limiter = limiter
-app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
 
 def is_allowed_extension(filename):
@@ -81,8 +75,6 @@ def test():
 
 
 @app.post("/", response_class=PlainTextResponse)
-@limiter.limit(UPLOAD_RATE_LIMIT)
-# request: Request argument is a must for ratelimit to work
 def predict(request: Request, file: UploadFile):
     # TODO: max file upload
     if not file:
