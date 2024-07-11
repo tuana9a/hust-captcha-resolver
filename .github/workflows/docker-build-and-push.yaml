@@ -33,8 +33,6 @@ jobs:
           echo DOCKER_DAILY_TAG=$(date +"%Y.%m.%d") >> $GITHUB_ENV
           echo DOCKER_MONTHLY_TAG=$(date +"%Y.%m") >> $GITHUB_ENV
 
-      # TODO: somehow print or notify the verion tag
-
       - name: Build and push
         uses: docker/build-push-action@v4
         with:

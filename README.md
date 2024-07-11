@@ -7,10 +7,10 @@ Thằng bạn mình tên Chiến giờ nó đang PhD student bên đại học O
 - Tỉ lệ nhận diện đúng khoảng 80%, có thể chạy trên CPU
 - Mình có đang host predictor này bằng một server 1 core, 1 GB ram thì thời gian predict một ảnh khoảng 0.5s (chậm lâu tùy lúc)
 
-Nếu các bạn không muốn tự deploy có thể dùng sẵn URL này https://hcr.tuana9a.com
+Nếu các bạn không muốn tự deploy có thể dùng sẵn URL này https://hcr.dkhptd.knative.tuana9a.com
 
 ```http
-POST https://hcr.tuana9a.com
+POST https://hcr.dkhptd.knative.tuana9a.com
 Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
 
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
@@ -60,7 +60,7 @@ or `DEVICE`=`cuda:0`
 quick test
 
 ```bash
-docker run --rm -p 8080:8080 -it --env-file .env tuana9a/hust-captcha-resolver
+docker run --rm -p 8080:8080 -it --env-file .env tuana9a/hcr
 ```
 
 ### `docker-compose.yaml`

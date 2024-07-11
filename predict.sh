@@ -1,6 +1,6 @@
 #!/bin/bash
 
-predictUrl=${predictUrl:-https://hcr.tuana9a.com}
+predictUrl=${predictUrl:-https://hcr.dkhptd.knative.tuana9a.com}
 
 filepath=$1
 
